@@ -1,6 +1,5 @@
 package foo.domain;
 
-public interface UserDao
-{
-  User getForUsername(String username);
+public interface UserDao {
+	User getForUsername(String username);
 }

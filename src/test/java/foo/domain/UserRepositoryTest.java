@@ -1,5 +1,11 @@
 package foo.domain;
 
+import static foo.repository.UserSpecs.bornBefore;
+import static org.springframework.data.jpa.domain.Specifications.where;
+
+import java.util.List;
+
+import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,23 +20,26 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import foo.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"/spring-business-context.xml"})
+@ContextConfiguration(locations = { "/spring-business-context.xml" })
 public class UserRepositoryTest {
 
+	private static final int NUMBER_OF_USERS = 50;
 	@Autowired
 	UserRepository userRepository;
 
 	@Before
 	public void setUp() {
-		for (int i = 0; i < 50; i++) {
-			saveUser("username" + 1);
+		userRepository.deleteAll();
+		for (int i = 0; i < NUMBER_OF_USERS; i++) {
+			saveUser("username" + 1, LocalDate.now().minusYears(i));
 		}
 	}
-		
-	private void saveUser(String username) {
+
+	private void saveUser(String username, LocalDate birthdate) {
 		User usuario = new User();
 		usuario.setFirstName("first");
 		usuario.setUsername(username);
+		usuario.setBirthdate(birthdate.toDate());
 		userRepository.save(usuario);
 	}
 
@@ -42,5 +51,10 @@ public class UserRepositoryTest {
 		System.out.println(pageUser.getContent().size());
 		Assert.assertEquals(pageUser.getContent().size(), usersPerPage);
 	}
-	
+
+	@Test
+	public void findUsersBornBefore() {
+		List<User> bornBeforeNineties = userRepository.findAll(where(bornBefore(new LocalDate(1990, 1, 1))));
+		Assert.assertEquals(NUMBER_OF_USERS - (LocalDate.now().year().get() - 1989), bornBeforeNineties.size());
+	}
 }
