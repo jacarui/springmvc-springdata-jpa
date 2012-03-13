@@ -20,38 +20,38 @@ public class UserController implements InitializingBean {
 
 	@Autowired
 	private UserRepository userRepository;
-	
-    public void afterPropertiesSet() {
-	    if(userRepository.count() == 0) {
-	    	for (int i = 0; i < 45; i++) {
+
+	public void afterPropertiesSet() {
+		if (userRepository.count() == 0) {
+			for (int i = 0; i < 45; i++) {
 				saveUser("username" + 1);
-			}	    	
-	    }
-    }
-    
-    private void saveUser(String username) {
-    	User usuario = new User();
-    	usuario.setFirstName("first");
-    	usuario.setUsername(username);
-    	userRepository.save(usuario);
-    }
+			}
+		}
+	}
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelMap getInitialMessage() {
-    	ModelMap modelMap = new ModelMap();
-    	Page<User> usersPage = userRepository.findByUsernameLike("user%", new PageRequest(4, 10));
+	private void saveUser(String username) {
+		User usuario = new User();
+		usuario.setFirstName("first");
+		usuario.setUsername(username);
+		userRepository.save(usuario);
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelMap getInitialMessage() {
+		ModelMap modelMap = new ModelMap();
+		Page<User> usersPage = userRepository.findByUsernameLike("usern%", new PageRequest(4, 10));
 		modelMap.addAttribute("usersPage", usersPage);
-    	modelMap.addAttribute("message", "Enter a Valid Name");
-    	return modelMap;
-    }
+		modelMap.addAttribute("message", "Enter a Valid Name");
+		return modelMap;
+	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    public @ModelAttribute(value = "message")
-    String getGreeting(@RequestParam("username") String username) {
-        User user = userRepository.findByUsernameLike(username, new PageRequest(0, 1)).getContent().get(0);
-        if (user == null) {
-            return "No such user exists! Use 'emuster' or 'jdoe'";
-        }
-        return "Hello, " + user.getFirstName() + " " + user.getLastName() + "!";
-    }
+	@RequestMapping(method = RequestMethod.POST)
+	public @ModelAttribute(value = "message")
+	String getGreeting(@RequestParam("username") String username) {
+		User user = userRepository.findByUsernameLike(username, new PageRequest(0, 1)).getContent().get(0);
+		if (user == null) {
+			return "No such user exists! Use 'emuster' or 'jdoe'";
+		}
+		return "Hello, " + user.getFirstName() + " " + user.getLastName() + "!";
+	}
 }

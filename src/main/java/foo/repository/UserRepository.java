@@ -1,7 +1,10 @@
 package foo.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,4 +16,6 @@ public interface UserRepository extends CrudRepository<User, Long>, JpaSpecifica
 	Page<User> findByUsername(String username, Pageable pageable);
 
 	Page<User> findByUsernameLike(String username, Pageable pageable);
+
+	List<User> findByUsernameLike(String username, Sort sort);
 }

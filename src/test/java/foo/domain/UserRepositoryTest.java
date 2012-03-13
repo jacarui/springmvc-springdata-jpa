@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -24,6 +25,8 @@ import foo.repository.UserRepository;
 public class UserRepositoryTest {
 
 	private static final int NUMBER_OF_USERS = 50;
+	private static final int USERS_PER_PAGE = 10;
+
 	@Autowired
 	UserRepository userRepository;
 
@@ -44,12 +47,17 @@ public class UserRepositoryTest {
 	}
 
 	@Test
-	public void findCustomersAccounts() {
-		int usersPerPage = 10;
-		Pageable pageable = new PageRequest(1, usersPerPage);
+	public void findUserByUserName() {
+		Sort sort = new Sort("username");
+		List<User> users = userRepository.findByUsernameLike("username%", sort);
+		Assert.assertEquals("username1", users.get(0).getUsername());
+	}
+
+	@Test
+	public void findSorted() {
+		Pageable pageable = new PageRequest(1, USERS_PER_PAGE, new Sort("username"));
 		Page<User> pageUser = userRepository.findByUsernameLike("username%", pageable);
-		System.out.println(pageUser.getContent().size());
-		Assert.assertEquals(pageUser.getContent().size(), usersPerPage);
+		Assert.assertEquals(10, pageUser.getContent().size());
 	}
 
 	@Test

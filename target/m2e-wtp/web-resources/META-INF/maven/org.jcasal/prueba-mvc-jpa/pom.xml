@@ -21,7 +21,6 @@
 		<jodatime.version>1.5.2</jodatime.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-
 		<version.aopalliance>1.0</version.aopalliance>
 		<version.standard.taglibs>1.1.2</version.standard.taglibs>
 		<version.commons.logging>1.1.1</version.commons.logging>
@@ -145,16 +144,17 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.1</version>
-        </dependency>
-        <dependency>
-        	<groupId>joda-time</groupId>
-        	<artifactId>joda-time</artifactId>
-        	<version>2.0</version>
-        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<repositories>
@@ -162,6 +162,11 @@
 			<id>repository.springframework.maven.release</id>
 			<name>Spring Framework Maven Release Repository</name>
 			<url>http://repo.springsource.org/libs-release</url>
+		</repository>
+		<repository>
+			<id>repository.querydsl.maven.release</id>
+			<name>QueryDsl</name>
+			<url>http://source.mysema.com/maven2/releases</url>
 		</repository>
 	</repositories>
 
@@ -189,7 +194,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.9</version>
 			</plugin>
+
 		</plugins>
 	</build>
-
 </project>
