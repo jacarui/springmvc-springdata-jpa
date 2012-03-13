@@ -1,10 +1,12 @@
 package foo.domain;
 
 import static foo.repository.UserSpecs.bornBefore;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.data.jpa.domain.Specifications.where;
 
 import java.util.List;
 
+import org.apache.commons.collections.IteratorUtils;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,6 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.mysema.query.types.expr.BooleanExpression;
 
 import foo.repository.UserRepository;
 
@@ -33,8 +37,8 @@ public class UserRepositoryTest {
 	@Before
 	public void setUp() {
 		userRepository.deleteAll();
-		for (int i = 0; i < NUMBER_OF_USERS; i++) {
-			saveUser("username" + 1, LocalDate.now().minusYears(i));
+		for (int i = 1; i <= NUMBER_OF_USERS; i++) {
+			saveUser("username" + i, LocalDate.now().minusYears(i));
 		}
 	}
 
@@ -63,6 +67,15 @@ public class UserRepositoryTest {
 	@Test
 	public void findUsersBornBefore() {
 		List<User> bornBeforeNineties = userRepository.findAll(where(bornBefore(new LocalDate(1990, 1, 1))));
-		Assert.assertEquals(NUMBER_OF_USERS - (LocalDate.now().year().get() - 1989), bornBeforeNineties.size());
+		Assert.assertEquals(NUMBER_OF_USERS - (LocalDate.now().year().get() - 1990), bornBeforeNineties.size());
+	}
+
+	@Test
+	public void testQueryDsl() {
+		QUser usuario = QUser.user;
+		BooleanExpression condicion = usuario.username.eq("username1").or(usuario.username.eq("username2"));
+		Iterable<User> queryResult = userRepository.findAll(condicion);
+		List<User> usuarios = IteratorUtils.toList(queryResult.iterator());
+		assertEquals(2, usuarios.size());
 	}
 }

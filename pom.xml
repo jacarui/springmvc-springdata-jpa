@@ -19,7 +19,9 @@
 		<slf4j.version>1.6.1</slf4j.version>
 		<aspectj.version>1.6.8</aspectj.version>
 		<jodatime.version>1.5.2</jodatime.version>
+		<querydsl.version>2.2.3</querydsl.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
 
 		<version.aopalliance>1.0</version.aopalliance>
 		<version.standard.taglibs>1.1.2</version.standard.taglibs>
@@ -155,6 +157,25 @@
 			<version>2.0</version>
 		</dependency>
 
+		<!-- QueryDsl -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>${querydsl.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.1</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>
@@ -195,6 +216,24 @@
 				<version>2.9</version>
 			</plugin>
 
+			<!-- QueryDsl plugin -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>com.mysema.maven</groupId> -->
+<!-- 				<artifactId>maven-apt-plugin</artifactId> -->
+<!-- 				<version>1.0</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<phase>generate-sources</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>process</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<outputDirectory>target/generated-sources</outputDirectory> -->
+<!-- 							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 		</plugins>
 	</build>
 </project>
