@@ -15,12 +15,6 @@
 
 	<jpa:repositories base-package="foo.repository" />
 
-	<!-- Use JTA transactions with the container-deployed EntityManager -->
-<!-- 	<tx:jta-transaction-manager /> -->
-
-	<!-- Use declarative transactions on the services -->
-<!-- 	<tx:annotation-driven /> -->
-
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -39,5 +33,11 @@
 	</bean>
 
 	<jdbc:embedded-database id="dataSource" type="HSQL" />
+
+	<!-- Use JTA transactions with the container-deployed EntityManager -->
+<!-- 	<tx:jta-transaction-manager /> -->
+
+	<!-- Use declarative transactions on the services -->
+<!-- 	<tx:annotation-driven /> -->
 
 </beans>

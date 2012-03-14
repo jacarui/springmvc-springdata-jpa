@@ -27,6 +27,9 @@ public class User {
 	@Column
 	private Date birthdate;
 
+	@Column
+	private Date modified;
+
 	public String getUsername() {
 		return username;
 	}
@@ -65,6 +68,14 @@ public class User {
 
 	public void setBirthdate(Date date) {
 		this.birthdate = date;
+	}
+
+	public Date getModified() {
+		return modified;
+	}
+
+	public void setModified(Date modified) {
+		this.modified = modified;
 	}
 
 }

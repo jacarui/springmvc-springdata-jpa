@@ -26,6 +26,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath lastName = createString("lastName");
 
+    public final DateTimePath<java.util.Date> modified = createDateTime("modified", java.util.Date.class);
+
     public final StringPath username = createString("username");
 
     public QUser(String variable) {

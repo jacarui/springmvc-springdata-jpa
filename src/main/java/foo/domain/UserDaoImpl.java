@@ -11,19 +11,18 @@
 //@Service
 //public class UserDaoImpl implements UserDao {
 //
-//    @Autowired
-//    private EntityManager entityManager;
+//	@Autowired
+//	private EntityManager entityManager;
 //
-//    @Transactional
-//    public User getForUsername(String username) {
-//        try {
-//            Query query = entityManager
-//                    .createQuery("select u from User u where u.username = ?");
-//            query.setParameter(1, username);
-//            return (User) query.getSingleResult();
-//        } catch (NoResultException e) {
-//           return null;
-//        }
-//    }
+//	@Transactional
+//	public User getForUsername(String username) {
+//		try {
+//			Query query = entityManager.createQuery("select u from User u where u.username = ?");
+//			query.setParameter(1, username);
+//			return (User) query.getSingleResult();
+//		} catch (NoResultException e) {
+//			return null;
+//		}
+//	}
 //
-//}
+// }
